@@ -1,0 +1,59 @@
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body onload="startTime()">
+	<div id="main">
+		<div class="main-left">
+			<div class="student-info-display">
+				<div class="student-info-left">
+					<img class="student-pic" src="../static/images/default.png">
+				</div>
+				<div class ="student-info-right">
+					<span class="student-label">ID No:</span><span class="student-text">{{id_no}}</span><br /><br />
+					<span class="student-label">Name:</span><span class="student-text">{{student_name}}</span><br /><br />
+					<span class="student-label">Grade/Year:</span><span class="student-text">{{level}}</span><br /><br />
+					<span class="student-label">Section:</span><span class="student-text">{{section}}</span>
+				</div>
+			</div>
+		</div>
+		<div class="main-right">
+			<div class="clock">
+				<span id="time"></span><br />
+				<span id="date">{{date}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div id="footer">
+		{% if action == 'login' %}
+		<a href="/action?action=login"><div class="action" style="background-color:#68232D; color:#FFFFFF;">
+			Login
+		</div></a>
+		<a href="/action?action=logout"><div class="action">
+			Logout
+		</div></a>
+
+		{% else %}
+		<a href="/action?action=login"><div class="action">
+			Login
+		</div></a>
+		<a href="/action?action=logout"><div class="action" style="background-color:#68232D; color:#FFFFFF;">
+			Logout
+		</div></a>
+		{% endif %}
+	</div>
+	<form onsubmit="post()">	
+		<input type="text" id="number" placeholder="Student Number"><br>
+		<input type="submit">
+	</form>
+
+	<script src="../static/js/jquery-1.11.0.min.js"></script>
+	<script src="../static/js/animations.js"></script>
+	<script src="../static/js/functions.js"></script>
+	
+</body>
+</html>

@@ -1,0 +1,139 @@
+@font-face
+	{
+		font-family: OpenSans;
+		src:url('../fonts/OpenSans-Light.ttf');
+	}
+
+html, body{
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	font-family: OpenSans, sans-serif;
+	position: fixed;
+}
+
+#main{
+	height: 100%;
+	width: 100%;
+}
+
+.main-right{
+	float: left;
+	width: 30%;
+	height: 100%;
+	text-align: center;
+
+	display:box;
+	box-pack:center;
+	box-align:center;
+	display:-webkit-box;
+	-webkit-box-pack:center;
+	-webkit-box-align:center;
+	display:-moz-box;
+	-moz-box-pack:center;
+	-moz-box-align:center;
+	display:-ms-flexbox;
+	-ms-flex-pack:center;
+	-ms-flex-align:center;
+	color: #fff;
+	/*background-color: #6FC0D3;*/
+	background-color: #68232D;
+}
+
+.clock{
+	margin-bottom: 20px;
+}
+
+#time{
+	font-size: 62px;
+	/*color: #BDBDBD;	*/
+}
+
+#date{
+	font-size: 34px;
+	/*color: #949494;	*/
+	margin-bottom: 20px;
+}
+
+.main-left{
+	color: #798088;
+	float: left;
+	height: 100%;
+	width: 70%;
+	background-color: #FFFFFF;
+
+	/*display:box;
+	box-pack:center;
+	box-align:center;
+	display:-webkit-box;
+	-webkit-box-pack:center;
+	-webkit-box-align:center;
+	display:-moz-box;
+	-moz-box-pack:center;
+	-moz-box-align:center;
+	display:-ms-flexbox;
+	-ms-flex-pack:center;
+	-ms-flex-align:center;*/
+}
+
+.student-info-display{
+	height: 100%;
+	width: 100%;
+}
+
+.student-info-left{
+	float: left;
+	margin-left: 40px;
+	height: 250px;
+	width: 210px;
+	position: relative;
+  	top: 50%;
+  	transform: translateY(-50%);
+}
+
+.student-pic{
+	margin-top: 10px;
+	height: 242px;
+	width: 100%;
+}
+
+.student-info-right{
+	float: left;
+	padding-left: 10px;
+	padding-top: 0px;
+	height: 250px;
+	width: 60%;
+	position: relative;
+  	top: 50%;
+  	transform: translateY(-50%);
+
+}
+
+.student-label{
+	color: #6B6B6B;
+	font-size: 36px;
+}
+
+.student-text{
+	margin-left: 10px;
+	font-size: 36px;
+	color: #862E3B;
+	font-weight: bold;
+}
+
+#footer{
+	position: absolute;
+	bottom: 0px;
+	z-index: 100;
+	height: 60px;
+	width: 70%;
+}
+
+.action{
+	float: left;
+	height: 100%;
+	width: 50%;
+	text-align: center;
+	font-size: 32px;
+	padding-top: 5px;
+}
