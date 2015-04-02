@@ -17,6 +17,11 @@ html, body{
 	width: 100%;
 }
 
+#id-number-input{
+	opacity:0;
+	filter:alpha(opacity=0);
+}
+
 .main-right{
 	float: left;
 	width: 30%;
@@ -123,7 +128,7 @@ html, body{
 
 #footer{
 	position: absolute;
-	bottom: 0px;
+	bottom: -60px;
 	z-index: 100;
 	height: 60px;
 	width: 70%;
@@ -136,4 +141,26 @@ html, body{
 	text-align: center;
 	font-size: 32px;
 	padding-top: 5px;
+}
+
+.error{
+	height: 100%;
+	width: 100%;
+	display:box;
+	box-pack:center;
+	box-align:center;
+	display:-webkit-box;
+	-webkit-box-pack:center;
+	-webkit-box-align:center;
+	display:-moz-box;
+	-moz-box-pack:center;
+	-moz-box-align:center;
+	display:-ms-flexbox;
+	-ms-flex-pack:center;
+	-ms-flex-align:center;
+}
+
+form{
+	position: absolute;
+	z-index: 100;
 }

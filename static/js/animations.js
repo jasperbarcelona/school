@@ -14,5 +14,12 @@ $("#search").on('click', function() {
 });*/
 
 $("#number").focus();
+$(".main-left").on('click', function() {
+	$("#footer").animate({"bottom":"0"});
+});
+
+$("body").on('click', function() {
+    $("#number").focus();
+});
 
 });

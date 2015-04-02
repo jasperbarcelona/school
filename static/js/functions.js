@@ -2,7 +2,8 @@ function post(){
 var number = $("#number").val()
 $.post('/login',{number:number},
 function(data){
-$('body').html(data);
+$('.main-left').html(data);
+$("#number").val('');
 });
 }
 

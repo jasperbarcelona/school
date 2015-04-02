@@ -158,7 +158,7 @@ def send_message_out(id_no, time):
     return None
 
 
-def log_in(id_no, date, time_in):
+def log_in(id_no, date, time_in,military_time):
     # log = Log.query.filter_by(id_no=id_no).order_by(Log.timestamp.desc()).first()
     student = get_student_data(id_no)
     suffix = get_suffix(student)
@@ -175,7 +175,8 @@ def log_in(id_no, date, time_in):
             'section': student.section,
             'department': student.department,
             'date': date,
-            'time_in': time_in
+            'time_in': time_in,
+            'military_time': military_time
         }
 
     logged=False
@@ -227,15 +228,8 @@ def log_out(id_no, date, time):
 
 
 def get_suffix(student):
-    if student.department=='highschool':
-        if student.level==1:
-            suffix='st Year'
-        elif student.level==2:
-            suffix='nd Year'
-        elif student.level==3:
-            suffix='rd Year'
-        else:
-            suffix='th Year'
+    if student.department=='faculty':
+        suffix=''
 
     else:
         if student.level==1:
@@ -259,6 +253,7 @@ admin.add_view(IngAdmin(Student, db.session))
 @app.route('/', methods=['GET', 'POST'])
 def index_route():
     session['action'] = 'login'
+    session['current_id'] = ''
     return flask.render_template(
         'index.html',
         action=session['action'],
@@ -269,6 +264,7 @@ def index_route():
 
 @app.route('/action', methods=['GET', 'POST'])
 def change_action():
+    session['current_id'] = ''
     session['action'] = flask.request.args.get('action')
     return flask.render_template(
         'index.html',
@@ -283,29 +279,31 @@ def webhooks_globe():
     id_no = flask.request.form.get("number", "undefined")
     date = time.strftime("%B %d, %Y")
     time_now = time.strftime("%I:%M %p")
+    military_time = time.strftime("%H:%M")
 
     if get_student_data(id_no):
         if session['action']=='logout':
-            # log_out(id_no)
-            message_thread = threading.Thread(target=send_message_out,args=[id_no, time_now])    
-            message_thread.start()
+            if session['current_id'] != id_no:
+                message_thread = threading.Thread(target=send_message_out,args=[id_no, time_now])    
+                message_thread.start()
 
-            log_thread = threading.Thread(target=log_out,args=[id_no, date, time_now])
-            log_thread.start()
+                log_thread = threading.Thread(target=log_out,args=[id_no, date, time_now,])
+                log_thread.start()
 
         else:
-            # log_user(id_no)
-            message_thread = threading.Thread(target=send_message,args=[id_no, time_now])    
-            message_thread.start()
+            if session['current_id'] != id_no:
+                message_thread = threading.Thread(target=send_message,args=[id_no, time_now])    
+                message_thread.start()
 
-            log_thread = threading.Thread(target=log_in,args=[id_no, date, time_now])
-            log_thread.start()
+                log_thread = threading.Thread(target=log_in,args=[id_no, date, time_now, military_time])
+                log_thread.start()
 
         student = get_student_data(id_no)
         suffix = get_suffix(student)
+        session['current_id'] = id_no
 
         return flask.render_template(
-            'index.html',
+            'info.html',
             action=session['action'],
             data='Sent',
             date=time.strftime("%B %d, %Y"),
@@ -317,7 +315,7 @@ def webhooks_globe():
                          student.middle_name[:1]+'.'
             )
 
-    return('',204)
+    return flask.render_template('error.html')
 
 
 
@@ -331,120 +329,22 @@ def db_rebuild():
         last_name='Barcelona',
         middle_name='Estrada',
         level=2,
-        department='highschool', 
+        department='student', 
         section='Fidelity',
         parent_contact='639183339068'
         )
 
     b = Student(
         id_no='2011334282',
-        first_name='Test1', 
+        first_name='Prof', 
         last_name='Barcelona', 
         middle_name='Estrada', 
-        level=3,
-        department='elemntary', 
-        section='Fidelity', 
-        parent_contact='639183339068'
-        )
-
-    c = Student(
-        id_no='2011334283',
-        first_name='Test2', 
-        last_name='Barcelona', 
-        middle_name='Estrada', 
-        level=1,
-        department='highschool', 
-        section='Fidelity', 
-        parent_contact='639183339068'
-        )
-
-    d = Student(
-        id_no='2011334284',
-        first_name='Test3', 
-        last_name='Barcelona', 
-        middle_name='Estrada', 
-        level=1,
-        department='highschool', 
-        section='Fidelity', 
-        parent_contact='639183339068'
-        )
-
-    e = Student(
-        id_no='2011334285',
-        first_name='Test4', 
-        last_name='Barcelona', 
-        middle_name='Estrada', 
-        level=1,
-        department='highschool', 
-        section='Fidelity', 
-        parent_contact='639183339068'
-        )
-
-    f = Student(
-        id_no='2011334286',
-        first_name='Test5', 
-        last_name='Barcelona', 
-        middle_name='Estrada', 
-        level=1,
-        department='highschool', 
-        section='Fidelity', 
-        parent_contact='639183339068'
-        )
-
-    g = Student(
-        id_no='2011334287',
-        first_name='Test6', 
-        last_name='Barcelona', 
-        middle_name='Estrada', 
-        level=1,
-        department='highschool', 
-        section='Fidelity', 
-        parent_contact='639183339068'
-        )
-
-    h = Student(
-        id_no='2011334288',
-        first_name='Test7', 
-        last_name='Barcelona', 
-        middle_name='Estrada', 
-        level=1,
-        department='highschool', 
-        section='Fidelity', 
-        parent_contact='639183339068'
-        )
-
-    i = Student(
-        id_no='2011334289',
-        first_name='Test8', 
-        last_name='Barcelona', 
-        middle_name='Estrada', 
-        level=1,
-        department='highschool', 
-        section='Fidelity', 
-        parent_contact='639183339068'
-        )
-
-    j = Student(
-        id_no='2011334280',
-        first_name='Test9', 
-        last_name='Barcelona', 
-        middle_name='Estrada', 
-        level=1,
-        department='highschool', 
-        section='Fidelity', 
+        department='faculty', 
         parent_contact='639183339068'
         )
 
     db.session.add(a)
     db.session.add(b)
-    db.session.add(c)
-    db.session.add(d)
-    db.session.add(e)
-    db.session.add(f)
-    db.session.add(g)
-    db.session.add(h)
-    db.session.add(i)
-    db.session.add(j)
     db.session.commit()
     return 'ok'
 
