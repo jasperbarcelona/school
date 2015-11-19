@@ -7,8 +7,10 @@
 
 <body onload="startTime()">
 	<div id="main">
+		<div class="logo-container">
+			<img class="logo" src="../static/images/sgb.png">
+		</div>
 		<div class="main-left">
-			
 		</div>
 		<div class="main-right">
 			<div class="clock">
@@ -21,26 +23,6 @@
 			<input type="submit">
 		</form>
 	</div>
-
-	<div id="footer">
-		{% if action == 'login' %}
-		<a href="/action?action=login"><div class="action" style="background-color:#68232D; color:#FFFFFF;">
-			Login
-		</div></a>
-		<a href="/action?action=logout"><div class="action">
-			Logout
-		</div></a>
-
-		{% else %}
-		<a href="/action?action=login"><div class="action">
-			Login
-		</div></a>
-		<a href="/action?action=logout"><div class="action" style="background-color:#68232D; color:#FFFFFF;">
-			Logout
-		</div></a>
-		{% endif %}
-	</div>
-	
 
 	<script src="../static/js/jquery-1.11.0.min.js"></script>
 	<script src="../static/js/animations.js"></script>

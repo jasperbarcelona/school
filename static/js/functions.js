@@ -1,10 +1,30 @@
+var timer = null
+
+function sleep(delay) {
+    var start = new Date().getTime();
+    while (new Date().getTime() < start + delay);
+  }
+
 function post(){
-var number = $("#number").val()
-$.post('/login',{number:number},
-function(data){
-$('.main-left').html(data);
-$("#number").val('');
-});
+    if (timer != null) {
+        clearTimeout(timer);
+    }
+    
+    $('.student-info-display').hide();
+    $('.logo-container').animate({"left":"0"},300);
+    var number = $("#number").val()
+
+    $.post('/login',{number:number},
+    function(data){
+        $('.main-left').html(data);
+        $("#number").val('');
+        $('.logo-container').animate({"left":"-70%"},300);
+        $('.student-info-display').fadeIn(500);
+        timer = setTimeout(function() {
+          $('.logo-container').animate({"left":"-100"},300);
+          $('.student-info-display').fadeOut(500);
+      }, 10000);
+    });
 }
 
 $('form').submit(function(e) {

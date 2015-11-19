@@ -27,19 +27,14 @@ html, body{
 	width: 30%;
 	height: 100%;
 	text-align: center;
-
-	display:box;
-	box-pack:center;
-	box-align:center;
-	display:-webkit-box;
-	-webkit-box-pack:center;
-	-webkit-box-align:center;
-	display:-moz-box;
-	-moz-box-pack:center;
-	-moz-box-align:center;
-	display:-ms-flexbox;
-	-ms-flex-pack:center;
-	-ms-flex-align:center;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	justify-content: center;
 	color: #fff;
 	/*background-color: #6FC0D3;*/
 	background-color: #68232D;
@@ -66,60 +61,69 @@ html, body{
 	height: 100%;
 	width: 70%;
 	background-color: #FFFFFF;
-
-	/*display:box;
-	box-pack:center;
-	box-align:center;
-	display:-webkit-box;
-	-webkit-box-pack:center;
-	-webkit-box-align:center;
-	display:-moz-box;
-	-moz-box-pack:center;
-	-moz-box-align:center;
-	display:-ms-flexbox;
-	-ms-flex-pack:center;
-	-ms-flex-align:center;*/
+	/*text-align: center;*/
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	justify-content: center;
 }
 
-.student-info-display{
+.student-pic-display{
+	float: left;
+	height: 260px;
+	width: 260px;
+	margin-right: 20px;
+}
+
+.student-pic-display img{
 	height: 100%;
 	width: 100%;
 }
 
-.student-info-left{
+.student-info-display{
 	float: left;
-	margin-left: 40px;
-	height: 250px;
-	width: 210px;
-	position: relative;
-  	top: 50%;
-  	transform: translateY(-50%);
+	height: 100%;
 }
 
-.student-pic{
-	margin-top: 10px;
-	height: 242px;
+.logo-container{
+	position: absolute;
+	left: -100;
+	top: 50%;
+  	transform: translateY(-50%);
+	height: 370px;
+	width: 70%;
+	background-color: #FFFFFF;
+	z-index: 100;
+}
+
+.logo{
+	margin-top: 20px;
+	height: 100%;
+	width: 320px;
+	float: right;
+}
+
+.student-info{
+	float: right;
 	width: 100%;
-}
-
-.student-info-right{
-	float: left;
-	padding-left: 10px;
-	padding-top: 0px;
-	height: 250px;
-	width: 60%;
 	position: relative;
   	top: 50%;
   	transform: translateY(-50%);
-
+  	/*text-align: center;*/
 }
 
 .student-label{
+	margin-top: 10px;
 	color: #6B6B6B;
 	font-size: 36px;
 }
 
 .student-text{
+	margin-top: 10px;
 	margin-left: 10px;
 	font-size: 36px;
 	color: #862E3B;
