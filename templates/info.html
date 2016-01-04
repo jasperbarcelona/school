@@ -1,8 +1,9 @@
-<div class="student-pic-display">
-	<img src="../static/images/default.png" />
-</div>
-<div class="student-info-display">
-	<div class ="student-info">
+
+	<div class="student-pic-display">
+		<img src="../static/images/default.png" />
+	</div>
+	<div class="student-info-display">
+		<div class ="student-info">
 		{% if level == 'None' %}
 		<br /><br /><br />
 		{% endif %}
@@ -12,5 +13,7 @@
 		<span class="student-label">Grade/Year:</span><span class="student-text">{{level}}</span><br /><br />
 		<span class="student-label">Section:</span><span class="student-text">{{section}}</span>
 		{% endif %}
+		</div>
 	</div>
-</div>
+
+

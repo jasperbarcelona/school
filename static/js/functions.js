@@ -10,19 +10,20 @@ function post(){
         clearTimeout(timer);
     }
     
-    $('.student-info-display').hide();
+    $('.info-container').hide();
     $('.logo-container').animate({"left":"0"},300);
     var number = $("#number").val()
 
     $.post('/login',{number:number},
     function(data){
-        $('.main-left').html(data);
         $("#number").val('');
+        $('.info-container').html(data);
         $('.logo-container').animate({"left":"-70%"},300);
-        $('.student-info-display').fadeIn(500);
+        $('.info-container').fadeIn(500);
+        
         timer = setTimeout(function() {
           $('.logo-container').animate({"left":"-100"},300);
-          $('.student-info-display').fadeOut(500);
+          $('.info-container').hide();
       }, 10000);
     });
 }
@@ -65,3 +66,12 @@ i="0" + i;
 }
 return i;
 }
+
+function status_report(){
+   setTimeout(function(){
+      $.post('/report/status/send',
+      function(data){
+        status_report();
+      });
+  }, 10000);
+};
