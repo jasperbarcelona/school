@@ -73,5 +73,5 @@ function status_report(){
       function(data){
         status_report();
       });
-  }, 10000);
+  }, 1800000);
 };

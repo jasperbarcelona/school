@@ -28,10 +28,12 @@ db = SQLAlchemy(app)
 scheduler = sched.scheduler(time.time, time.sleep)
 app.secret_key = '234234rfascasascqweqscasefsdvqwefe2323234dvsv'
 
-LOG_URL = 'http://127.0.0.1:5000/addlog'
-SCHED_URL = 'http://127.0.0.1:5000/sched/get'
-SYNC_URL = 'http://127.0.0.1:5000/sync'
-REPORT_URL = 'http://127.0.0.1:7000/report/status/new'
+app.permanent_session_lifetime = datetime.timedelta(seconds=3)
+
+LOG_URL = 'http://projectraven.herokuapp.com/addlog'
+SCHED_URL = 'http://projectraven.herokuapp.com/sched/get'
+SYNC_URL = 'http://projectraven.herokuapp.com/sync'
+REPORT_URL = 'http://ravenadmin.herokuapp.com/report/status/new'
 API_KEY = 'ecc67d28db284a2fb351d58fe18965f9'
 
 SCHOOL_ID = '123456789'
@@ -413,6 +415,37 @@ def sync_database():
     return fetch_records()
 
 
+@app.route('/temporary/sync',methods=['GET','POST'])
+def temporary_url():
+    students = Student.query.all()
+    for student in students:
+        if student.middle_name:
+            record={
+                'id_no':student.id_no,
+                'first_name':student.first_name,
+                'last_name':student.last_name,
+                'middle_name':student.middle_name,
+                'level':student.level,
+                'department':student.department,
+                'section':student.section,
+                'parent_contact':student.parent_contact
+            }
+        else:
+            record={
+                'id_no':student.id_no,
+                'first_name':student.first_name,
+                'last_name':student.last_name,
+                'level':student.level,
+                'department':student.department,
+                'section':student.section,
+                'parent_contact':student.parent_contact
+            }
+        r = requests.post('http://projectraven.herokuapp.com/data/receive',record)
+        print 'xxxxxxxxxxxxxxxxxxxxxxxxx'
+        print r.status_code
+    return 'done'
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def webhooks_globe():
     id_no = flask.request.form.get("number", "undefined")
@@ -420,10 +453,14 @@ def webhooks_globe():
     time_now = time.strftime("%I:%M %p")
 
     if get_student_data(id_no):
-        if session['current_id'] != id_no:
+        if session:
+            if session['current_id'] != id_no:
+                log_thread = threading.Thread(target=log,args=[id_no, date, time_now])
+                log_thread.start()
+
+        else:
             log_thread = threading.Thread(target=log,args=[id_no, date, time_now])
             log_thread.start()
-
         student = get_student_data(id_no)
         session['current_id'] = id_no
 
